@@ -5,16 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.edu.unijuazeiro.appmusic.dao.util.ConnectionFactory;
-import br.edu.unijuazeiro.appmusic.model.usuario.User;
+import br.edu.unijuazeiro.appmusic.model.music.Music;
 
-public class UserDAO {
+public class MusicDAO {
     
-    public void saveUser(User user){
+    public void save(Music music){
         EntityManager em = ConnectionFactory.getEntityManager();
-
         try{
             em.getTransaction().begin();
-            em.persist(user);
+            em.persist(music);
             em.getTransaction().commit();
         }catch(Exception e){
             if(em.getTransaction().isActive()){
@@ -27,12 +26,11 @@ public class UserDAO {
         }
     }
 
-    public void updateuser(User user){
+    public void update(Music music){
         EntityManager em = ConnectionFactory.getEntityManager();
-
         try{
             em.getTransaction().begin();
-            em.merge(user);
+            em.merge(music);
             em.getTransaction().commit();
         }catch(Exception e){
             if(em.getTransaction().isActive()){
@@ -45,13 +43,12 @@ public class UserDAO {
         }
     }
 
-    public void removeUser(Integer userId){
+    public void remove(Integer musicId){
         EntityManager em = ConnectionFactory.getEntityManager();
-
         try{
             em.getTransaction().begin();
-            User user = em.find(User.class, userId);
-            em.remove(user);
+            Music music = em.find(Music.class, musicId);
+            em.remove(music);
             em.getTransaction().commit();
         }catch(Exception e){
             if(em.getTransaction().isActive()){
@@ -64,23 +61,28 @@ public class UserDAO {
         }
     }
 
-    public User findById(Integer userId){
+
+    public List<Music> findByName(String name){
         EntityManager em = ConnectionFactory.getEntityManager();
-        User user = em.find(User.class, userId);
+
+        List<Music> musics = em.createQuery("select m from Music m where lower(c.name) like lower(:name)", Music.class)
+        .setParameter("name","%"+name+"%").getResultList();
+
+        if(em.isOpen()){
+            em.close();
+        }
+        return musics;
+    }
+
+    public List<Music> listAll(){
+        EntityManager em = ConnectionFactory.getEntityManager();
+
+        List<Music> allMusics = em.createQuery("select m from Music m", Music.class).getResultList();
         
         if(em.isOpen()){
             em.close();
         }
-        return user;
-    }
 
-    public List<User> findByName(String name) {
-        EntityManager em = ConnectionFactory.getEntityManager();
-        List<User> users = em.createQuery("select u from User u where lower(c.name) like lower(:name)", User.class)
-                .setParameter("name", "%" + name + "%").getResultList();
-        if (em.isOpen()) {
-            em.close();
-        }
-        return users;
+        return allMusics;
     }
 }
