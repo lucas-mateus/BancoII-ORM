@@ -1,4 +1,4 @@
-package br.edu.unijuazeiro.appmusic.model.artista;
+package br.edu.unijuazeiro.appmusic.model.artist;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,11 +8,13 @@ import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Artista {
+public class Artist {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_artista")
@@ -20,6 +22,5 @@ public class Artista {
     private Integer id;
     private String nameArtist;
     private Long biography;
-    private Long photo;
 
 }
