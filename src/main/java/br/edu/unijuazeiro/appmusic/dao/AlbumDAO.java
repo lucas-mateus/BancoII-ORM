@@ -74,13 +74,13 @@ public class AlbumDAO {
         return alb;
     }
 
-    public Album findByNameAndReleaseDate(String name, String date){
+    public Album findByNameAndReleaseYear(String name, String year){
         EntityManager em = ConnectionFactory.getEntityManager();
 
-        Album alb = em.createQuery("select a from Album a join a.music m where lower(a.name) like lower(:name)"+
-        "and m.date like :date", Album.class)
+        Album alb = em.createQuery("select a from Album a where lower(a.nameAlbum) like lower(:name)"+
+        " and a.releaseYear like :year", Album.class)
         .setParameter("name", "%"+name+"%")
-        .setParameter("date", date)
+        .setParameter("year", year)
         .getSingleResult();
         
         if(em.isOpen()){
