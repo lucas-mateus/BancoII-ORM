@@ -77,7 +77,7 @@ public class MusicDAO {
     public List<Music> listAll(){
         EntityManager em = ConnectionFactory.getEntityManager();
 
-        List<Music> allMusics = em.createQuery("select m from Music m", Music.class).getResultList();
+        List<Music> allMusics = em.createQuery("from Music", Music.class).getResultList();
         
         if(em.isOpen()){
             em.close();
