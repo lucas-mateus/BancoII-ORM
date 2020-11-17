@@ -74,5 +74,17 @@ public class ArtistDAO {
         return artists;
     }
 
+    public List<Artist> findByNameOrAlbum(String search){
+        EntityManager em = ConnectionFactory.getEntityManager();
+
+        List<Artist> artists = em.createQuery("select a from Artist a join a.album b where lower(a.name) like lower(:search)"+
+        "or lower(b.name) like lower(:search)", Artist.class)
+        .setParameter("search", "%" + search + "%").getResultList();
+
+        if(em.isOpen()){
+            em.close();
+        }
+        return artists;
+    }
 
 }
