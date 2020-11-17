@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import br.edu.unijuazeiro.appmusic.model.album.Album;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +25,9 @@ public class Artist {
     private Integer id;
     private String nameArtist;
     private Long biography;
+    
+    @OneToMany
+    @JoinColumn
+    private Album album;
 
 }
