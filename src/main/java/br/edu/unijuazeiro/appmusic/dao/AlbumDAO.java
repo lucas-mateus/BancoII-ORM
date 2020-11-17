@@ -1,5 +1,7 @@
 package br.edu.unijuazeiro.appmusic.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.edu.unijuazeiro.appmusic.dao.util.ConnectionFactory;
@@ -64,8 +66,8 @@ public class AlbumDAO {
 
     public Album findByName(String name){
         EntityManager em = ConnectionFactory.getEntityManager();
-        Album alb = em.createQuery("select a from Album where lower(a.name) like lower(:name)", Album.class)
-        .setParameter("name", name)
+        Album alb = em.createQuery("select a from Album a where lower(a.nameAlbum) like lower(:name)", Album.class)
+        .setParameter("name", "%"+ name+"%")
         .getSingleResult();
 
         if(em.isOpen()){
@@ -83,6 +85,19 @@ public class AlbumDAO {
         .setParameter("year", year)
         .getSingleResult();
         
+        if(em.isOpen()){
+            em.close();
+        }
+        return alb;
+    }
+
+    public List<Album> findByNameOrArtist(String search){
+        EntityManager em = ConnectionFactory.getEntityManager();
+
+        List<Album> alb = em.createQuery("select a from Album a join a.artist t where lower(a.nameAlbum) like lower(:search)"+
+        "or lower(t.nameArtist) like lower(:search)", Album.class)
+        .setParameter("search", "%" + search + "%").getResultList();
+
         if(em.isOpen()){
             em.close();
         }
