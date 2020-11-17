@@ -3,7 +3,7 @@ package br.edu.unijuazeiro.appmusic.model.playlist;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import br.edu.unijuazeiro.appmusic.model.music.Music;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class Playlist {
     private Integer id;
     private String namPlaylist;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn
     private Music music;
 }
