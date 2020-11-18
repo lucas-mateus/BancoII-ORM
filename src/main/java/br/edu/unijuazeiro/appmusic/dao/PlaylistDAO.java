@@ -43,7 +43,7 @@ public class PlaylistDAO {
         }
     }
 
-    public void remove(String idPlaylist){
+    public void remove(Integer idPlaylist){
         EntityManager em = ConnectionFactory.getEntityManager();
         try {
             em.getTransaction().begin();
