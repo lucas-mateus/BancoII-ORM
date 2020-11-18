@@ -77,7 +77,7 @@ public class ArtistDAO {
     public List<Artist> listAll(){
         EntityManager em = ConnectionFactory.getEntityManager();
 
-        List<Artist> all = em.createQuery("select from Artist", Artist.class).getResultList();
+        List<Artist> all = em.createQuery("from Artist", Artist.class).getResultList();
 
         return all;
     }
