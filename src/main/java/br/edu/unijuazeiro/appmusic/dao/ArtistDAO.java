@@ -74,4 +74,12 @@ public class ArtistDAO {
         return artists;
     }
 
+    public List<Artist> listAll(){
+        EntityManager em = ConnectionFactory.getEntityManager();
+
+        List<Artist> all = em.createQuery("select from Artist", Artist.class).getResultList();
+
+        return all;
+    }
+
 }

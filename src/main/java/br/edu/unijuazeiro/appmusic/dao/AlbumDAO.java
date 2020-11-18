@@ -45,12 +45,12 @@ public class AlbumDAO {
         }
     }
 
-    public void remove(String idAlbum){
+    public void remove(String albumId){
         EntityManager em = ConnectionFactory.getEntityManager();
 
         try {
             em.getTransaction().begin();
-            Album alb = em.find(Album.class, idAlbum);
+            Album alb = em.find(Album.class, albumId);
             em.remove(alb);
             em.getTransaction().commit();
         } catch (Exception e) {
