@@ -1,5 +1,6 @@
 package br.edu.unijuazeiro.appmusic.model.usuario;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,11 @@ public class Consumer {
     @SequenceGenerator(name = "gen_user", initialValue = 1, allocationSize = 10,sequenceName = "gen_user" )
     private Integer id;
     private String name;
+    
+    @Column(unique=true)
     private String email;
     private String password;
-    private String sex;
+    private String sex; 
+
+   
 }
