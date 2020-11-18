@@ -16,7 +16,7 @@ public class Playlist {
     
     @Id
     private Integer id;
-    private String namPlaylist;
+    private String namePlaylist;
 
     @ManyToOne
     @JoinColumn
