@@ -64,8 +64,8 @@ public class PlaylistDAO {
     public List<Playlist> search(String name){
         EntityManager em = ConnectionFactory.getEntityManager();
 
-        List<Playlist> pls = em.createQuery("select p from Playlist p join p.music m where lower(p.name) like lower(:name)"+
-        "or lower(m.name) like lower(:name)", Playlist.class).setParameter("name", "%"+ name +"%").getResultList();
+        List<Playlist> pls = em.createQuery("select p from Playlist p join p.music m where lower(p.namePlaylist) like lower(:name)"+
+        "or lower(m.nameMusic) like lower(:name)", Playlist.class).setParameter("name", "%"+ name +"%").getResultList();
 
         if(em.isOpen()){
             em.close();
